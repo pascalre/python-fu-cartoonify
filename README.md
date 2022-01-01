@@ -10,4 +10,4 @@ GIMP plug-in to turn a photo into a cartoon.
 1. Restart GIMP, the plug-in is listed under `Filters > Artistic > Cartoonify...`
 
 # License
-python-fu-cartoonify is licensed under the [MIT License](https://raw.githubusercontent.com/pascalre/python-fu-cartoonify/master/LICENSE).
+python-fu-cartoonify is licensed under the [GPL-3.0 License](https://raw.githubusercontent.com/pascalre/python-fu-cartoonify/master/LICENSE).
