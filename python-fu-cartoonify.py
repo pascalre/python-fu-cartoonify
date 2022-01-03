@@ -5,7 +5,10 @@ from gimpfu import *
 
 
 def apply_cartoon_filter(img, drawable):
-    # see https://developer.gimp.org/api/2.0/libgimp/index.html
+    # docs
+    # https://developer.gimp.org/api/2.0/libgimp/index.html
+    # https://developer.gimp.org/api/2.0/libgimp/libgimp-gimpenums.html#GimpLayerModeEffects
+    pdb.gimp_image_undo_group_start(img)
     # step 1: duplicate layer two times
     # layer2
     layer2 = pdb.gimp_layer_copy(drawable, False)
@@ -24,22 +27,23 @@ def apply_cartoon_filter(img, drawable):
     pdb.plug_in_edge(img, layer3, 1, 0, 0)
 
     # step 3: adjust curves
-    # see https://developer.gimp.org/api/2.0/libgimp/libgimp-gimpcolor.html#gimp-curves-spline
+    # https://developer.gimp.org/api/2.0/libgimp/libgimp-gimpcolor.html#gimp-curves-spline
     pdb.gimp_curves_spline(layer3, 0, 6,
                            [0, 0,
                             130, 255,
                             255, 255])
 
     # step 4: adjust levels
-    # see https://developer.gimp.org/api/2.0/libgimp/libgimp-gimpcolor.html#gimp-levels
+    # https://developer.gimp.org/api/2.0/libgimp/libgimp-gimpcolor.html#gimp-levels
     pdb.gimp_levels(layer3, 0, 0, 130, 1.0, 0, 255)
 
     # step 5: merge layers down
     pdb.gimp_image_merge_down(img, layer3, 0)
     # set layer2 mode to GIMP_OVERLAY_MODE (23)
-    # see https://developer.gimp.org/api/2.0/libgimp/libgimp-gimpenums.html#GimpLayerModeEffects
-    pdb.gimp_layer_set_mode(img.layers[0], 23)
-    pdb.gimp_image_merge_down(img, img.layers[0], 0)
+    layer2 = pdb.gimp_image_get_active_drawable(img)
+    pdb.gimp_layer_set_mode(layer2, 23)
+    pdb.gimp_image_merge_down(img, layer2, 0)
+    pdb.gimp_image_undo_group_end(img)
 
 
 register(
