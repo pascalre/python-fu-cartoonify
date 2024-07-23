@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """A set of GIMP plug-ins to turn a photo into a cartoon."""
 
-from gimpfu import pdb, register, main, PF_IMAGE, PF_DRAWABLE,\
+from gimpfu import pdb, register, main, PF_IMAGE, PF_DRAWABLE, \
     PF_ADJUSTMENT  # pylint: disable=import-error
 
 
